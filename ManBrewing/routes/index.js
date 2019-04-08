@@ -17,10 +17,27 @@ con.connect(function (err) {
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    res.redirect('/beerroom/environment');
+});
+
+router.get('/beerroom/environment', (req, res) => {
     var countQuery = 'SELECT COUNT(*) AS rows FROM DataLog';
     con.query(countQuery, function (err, result) {
         if (err) throw err;
-        res.render('index', { title: 'M.A.N. Brewing', recordCount: result[0].rows });
+
+        var recordCount = result[0].rows;
+
+        var currentQuery = 'SELECT dl.temperature, dl.humidity, dl.timestamp FROM DataLog dl ORDER BY dl.timestamp DESC LIMIT 50';
+        con.query(currentQuery, function (err, result) {
+            if (err) throw err;
+
+            var celsius = result[0].temperature;
+            var fahrenheit = result[0].temperature * 9 / 5 + 32;
+            var humidity = result[0].humidity;
+            var timestamp = result[0].timestamp;
+
+            res.render('index', { title: 'M.A.N. Brewing', recordCount: recordCount, celsius: celsius, fahrenheit: fahrenheit, humidity: humidity, timestamp: timestamp });
+        });
     });
 });
 

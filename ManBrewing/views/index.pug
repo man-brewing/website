@@ -3,4 +3,5 @@
 block content
   h1= title
   p Welcome to #{title}
-  p Currently have #{recordCount}
+  p Currently have #{recordCount} environment records.
+  p Most recent climate is #{celsius}&deg;C (#{fahrenheit}&deg;F) and humidity is #{humidity}% as measured at #{moment(timestamp).fromNow()}
