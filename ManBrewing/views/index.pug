@@ -4,4 +4,9 @@ block content
   h1= title
   p Welcome to #{title}
   p Currently have #{recordCount} environment records.
-  p Most recent climate is #{celsius}&deg;C (#{fahrenheit}&deg;F) and humidity is #{humidity}% as measured at #{moment(timestamp).fromNow()}
+  p Most recent climate is #{celsius}&deg;C (#{fahrenheit}&deg;F) and humidity is #{humidity}% as measured #{moment(timestamp).fromNow()}
+
+  canvas(id="myChart", width="400", height="400")
+  
+  script(src='/javascripts/Chart.js/Chart.bundle.min.js')
+  script(src='/javascripts/chart_test.js')

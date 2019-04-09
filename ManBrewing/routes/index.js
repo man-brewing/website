@@ -31,9 +31,9 @@ router.get('/beerroom/environment', (req, res) => {
         con.query(currentQuery, function (err, result) {
             if (err) throw err;
 
-            var celsius = result[0].temperature;
-            var fahrenheit = result[0].temperature * 9 / 5 + 32;
-            var humidity = result[0].humidity;
+            var celsius = result[0].temperature.toFixed(2);
+            var fahrenheit = (result[0].temperature * 9 / 5 + 32).toFixed(2);
+            var humidity = result[0].humidity.toFixed(2);
             var timestamp = result[0].timestamp;
 
             res.render('index', { title: 'M.A.N. Brewing', recordCount: recordCount, celsius: celsius, fahrenheit: fahrenheit, humidity: humidity, timestamp: timestamp });
