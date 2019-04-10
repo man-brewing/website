@@ -1,13 +1,13 @@
 {
   "name": "man-brewing",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node app"
   },
   "description": "ManBrewing",
   "author": {
-    "name": ""
+    "name": "ndykstra"
   },
   "dependencies": {
     "body-parser": "^1.15.0",

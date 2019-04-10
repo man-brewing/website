@@ -1,12 +1,19 @@
 ﻿extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p Currently have #{recordCount} environment records.
-  p Most recent climate is #{celsius}&deg;C (#{fahrenheit}&deg;F) and humidity is #{humidity}% as measured #{moment(timestamp).fromNow()}
+    h1= title
+    p Welcome to #{title}
+    p Currently have #{recordCount} environment records.
+    p Most recent climate is #{celsius}&deg;C (#{fahrenheit}&deg;F) and humidity is #{humidity}% as measured #{moment(timestamp).fromNow()}
 
-  canvas(id="myChart", width="400", height="400")
-  
-  script(src='/javascripts/Chart.js/Chart.bundle.min.js')
-  script(src='/javascripts/chart_test.js')
+    div(style="width:75%")
+        canvas(id="environmentChart")
+
+    script.
+        var tempData = !{tempData};
+        var humidityData = !{humidityData};
+        var chartLabels = !{chartLabels};
+    
+    link(rel='stylesheet', href='/javascripts/Chart.js/Chart.css')
+    script(src='/javascripts/Chart.js/Chart.min.js')
+    script(src='/javascripts/summary_chart.js')

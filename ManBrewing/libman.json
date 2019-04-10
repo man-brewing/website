@@ -1,10 +1,15 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "Chart.js@2.8.0",
-      "destination": "public/javascripts/Chart.js/"
-    }
-  ]
+    "libraries": [
+        {
+            "provider": "cdnjs",
+            "library": "Chart.js@2.8.0",
+            "destination": "public/javascripts/Chart.js/",
+            "files": [
+                "Chart.min.css",
+                "Chart.min.js"
+            ]
+        }
+    ]
 }
