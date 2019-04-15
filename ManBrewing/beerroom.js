@@ -22,7 +22,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/images", express.static(path.join(__dirname, 'public/images')));
+app.use("/javascripts", express.static(path.join(__dirname, 'public/javascripts')));
+app.use("/stylesheets", express.static(path.join(__dirname, 'public/stylesheets')));
 
 app.locals.moment = require('moment');
 
