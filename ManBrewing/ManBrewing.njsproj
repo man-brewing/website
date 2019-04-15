@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.props" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.props')" />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>ManBrewing</Name>
     <RootNamespace>ManBrewing</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -31,9 +34,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="Chart.min.js" />
+    <Compile Include="public\javascripts\summary_chart.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
+    <Content Include="libman.json" />
     <Content Include="package.json" />
+    <None Include="packages.config" />
+    <Content Include="public\images\favicon.ico" />
+    <Content Include="public\javascripts\Chart.js\Chart.min.css" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\index.pug" />
@@ -44,6 +55,7 @@
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
+    <Folder Include="public\javascripts\Chart.js\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
@@ -89,4 +101,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.targets" Condition="Exists('..\packages\Microsoft.Web.LibraryManager.Build.1.0.172\build\Microsoft.Web.LibraryManager.Build.targets')" />
 </Project>
