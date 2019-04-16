@@ -1,4 +1,6 @@
 ﻿'use strict';
+
+require('dotenv').config();
 var debug = require('debug');
 var express = require('express');
 var path = require('path');
@@ -17,12 +19,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+//app.use(favicon('/beerroom/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/beerroom", express.static(path.join(__dirname, 'public')));
 
 app.locals.moment = require('moment');
 

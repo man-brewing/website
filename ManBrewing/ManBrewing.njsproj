@@ -16,7 +16,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2166d202-1259-4d01-933d-2f40a66abd2a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>app.js</StartupFile>
+    <StartupFile>beerroom.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,18 +33,18 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="app.js" />
-    <Compile Include="Chart.min.js" />
+    <Compile Include="beerroom.js" />
+    <Compile Include="public\javascripts\Chart.min.js" />
     <Compile Include="public\javascripts\summary_chart.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
-    <Content Include="libman.json" />
+    <Content Include=".env" />
     <Content Include="package.json" />
     <None Include="packages.config" />
     <Content Include="public\images\favicon.ico" />
-    <Content Include="public\javascripts\Chart.js\Chart.min.css" />
+    <Content Include="public\stylesheets\Chart.min.css" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\index.pug" />
@@ -55,7 +55,6 @@
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
-    <Folder Include="public\javascripts\Chart.js\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
