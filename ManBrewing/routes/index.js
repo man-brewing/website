@@ -63,10 +63,10 @@ router.get('/beerroom/environment', (req, res) => {
             var pugData = {
                 title: 'M.A.N. Brewing',
                 recordCount: countResult[0].rows,
-                celsius: result[0].temperature.toFixed(2),
-                fahrenheit: (result[0].temperature * 9 / 5 + 32).toFixed(2),
-                humidity: result[0].humidity.toFixed(2),
-                timestamp: result[0].timestamp,
+                celsius: result.length ? result[0].temperature.toFixed(2) : 0.00,
+                fahrenheit: result.length ? (result[0].temperature * 9 / 5 + 32).toFixed(2) : 0.00,
+                humidity: result.length ? result[0].humidity.toFixed(2) : 0.00,
+                timestamp: result.length ? result[0].timestamp : 0.00,
                 tempData: JSON.stringify(temperatureData),
                 humidityData: JSON.stringify(humidityData),
                 chartLabels: JSON.stringify(chartLabels)
