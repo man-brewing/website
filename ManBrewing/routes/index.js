@@ -115,7 +115,7 @@ router.post('/beerroom/environment', (req, res) => {
                 if (err) throw err;
 
                 if (result.affectedrows < 1) {
-                    console.log('something went wrong inserting new environment record');
+                    logger.error('Something went wrong inserting new environment record');
                 }
 
                 res.send("received");
