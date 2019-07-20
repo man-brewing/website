@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="beerroom.js" />
+    <Compile Include="lib\log.js" />
     <Compile Include="public\javascripts\Chart.min.js" />
     <Compile Include="public\javascripts\summary_chart.js">
       <SubType>Code</SubType>
@@ -52,6 +53,7 @@
     <Content Include="views\error.pug" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="lib\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
