@@ -4,6 +4,7 @@ var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
 var https = require('https');
+var logger = require('./../lib/log.js');
 
 var con = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -12,12 +13,13 @@ var con = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
+
 /**
  * Connect to the MySQL database.
  */
 con.connect(function (err) {
     if (err) throw err;
-    console.log("Connected!");
+    logger.debug('Database connected');
 });
 
 /**
@@ -38,6 +40,8 @@ router.get('/beerroom', function (req, res, next) {
  * Serves the main page for the beerroom application.
  */
 router.get('/beerroom/environment', (req, res) => {
+    logger.debug('GET /beerroom/environment');
+
     var chartLabels = [];
     var temperatureData = [];
     var humidityData = [];
@@ -47,10 +51,14 @@ router.get('/beerroom/environment', (req, res) => {
     con.query(countQuery, function (err, countResult) {
         if (err) throw err;
 
+        logger.debug('Retrieved ' + countResult[0].rows + ' total records');
+
         // populate the chart with only the most recent records
         var currentQuery = 'SELECT dl.temperature, dl.humidity, dl.timestamp FROM DataLog dl ORDER BY dl.timestamp DESC LIMIT 50';
         con.query(currentQuery, function (err, result) {
             if (err) throw err;
+
+            logger.debug('Pulled top ' + result.length + ' records');
 
             // build the arrays for the charts
             for (var i = 0; i < result.length; i++) {
@@ -82,6 +90,7 @@ router.get('/beerroom/environment', (req, res) => {
  * saves the data to the database.
  */
 router.post('/beerroom/environment', (req, res) => {
+    logger.debug('POST /beerroom/environment');
 
     // get ambient weather data
     https.get('https://api.openweathermap.org/data/2.5/weather?id=' + process.env.WEATHER_CITY_ID + '&appid=' + process.env.WEATHER_API_KEY + '&units=metric', (resp) => {
@@ -106,14 +115,14 @@ router.post('/beerroom/environment', (req, res) => {
                 if (err) throw err;
 
                 if (result.affectedrows < 1) {
-                    console.log('something went wrong inserting new environment record');
+                    logger.error('Something went wrong inserting new environment record');
                 }
 
                 res.send("received");
             });
         });
     }).on("error", (err) => {
-        console.log("Error: " + err.message);
+        logger.error("Error: " + err.message);
     });
 });
 
