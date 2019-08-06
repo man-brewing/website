@@ -17,6 +17,10 @@ const logger = winston.createLogger({
         new winston.transports.File({
             filename: 'beerroom.log',
             level: 'info'
+        }),
+        new winston.transports.File({
+            filename: 'beerroom_debug.log',
+            level: 'debug'
         })
     ],
     level: process.env.LOG_LEVEL
