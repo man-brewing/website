@@ -41,7 +41,6 @@ app.use(function (req, res, next) {
 });
 
 /**
- *
  * Development error handler, will print stacktrace
  */
 if (process.env.ENV === 'DEVELOPMENT') {

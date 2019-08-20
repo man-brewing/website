@@ -17,7 +17,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2166d202-1259-4d01-933d-2f40a66abd2a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>beerroom.js</StartupFile>
+    <StartupFile>man_brewing.js</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -34,8 +34,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="beerroom.js" />
     <Compile Include="lib\log.js" />
+    <Compile Include="man_brewing.js" />
     <Compile Include="public\javascripts\Chart.min.js" />
     <Compile Include="public\javascripts\summary_chart.js">
       <SubType>Code</SubType>
