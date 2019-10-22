@@ -5,11 +5,11 @@ var router = express.Router();
 var logger = require('./../lib/log.js');
 
 /**
- * Redirect to the environment chart page.
+ * MAN Brewing main page.
  */
 router.get('/', function (req, res, next) {
     logger.debug('GET index');
-    
+
     var pugData = {
         title: 'M.A.N. Brewing'
     };

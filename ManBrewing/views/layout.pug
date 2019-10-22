@@ -4,8 +4,28 @@ html
     title= title
     link(rel='stylesheet', href='/beerroom/stylesheets/main.css')
     link(rel='shortcut icon', href='/beerroom/images/favicon.ico')
-    
-    script(src='https://unpkg.com/react@16/umd/react.development.js')
-    script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js')
+    - var environment = process.env.ENV;
+
+    if environment == 'DEVELOPMENT'
+        script(src='https://unpkg.com/react@16/umd/react.development.js' crossorigin)
+        script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js' crossorigin)
+    else
+        script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
+        script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
+
+    script (src='https://unpkg.com/babel-standalone@6/babel.min.js')
   body
-    block content
+    div(style="min-height:100%;")
+      div(id='banner-image')
+        div(id='company-name') M.A.N. Brewing
+        
+      block content      
+      
+    div(id='footer')
+      table(class='footer-table')
+        tr
+          td 
+            a(target='blank' href='https://www.google.com/maps/place/2837+N+Pierce+St,+Milwaukee,+WI+53212/@43.0698428,-87.9069123,15z/data=!4m5!3m4!1s0x8805192fc89a6315:0xab2810b41f950d70!8m2!3d43.0701594!4d-87.9030329') Find Us
+        tr
+          td
+            a(target='blank' href='mailto:webmaster@krimthered.ddns.net') Contact Us

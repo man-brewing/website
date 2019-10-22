@@ -27,6 +27,20 @@ window.onload = function () {
                 data: humidityData,
                 fill: false,
                 yAxisID: 'y-axis-2'
+            }, {
+                label: 'Ambient Temperature °F',
+                borderColor: window.chartColors.purple,
+                backgroundColor: window.chartColors.purple,
+                data: ambientTData,
+                fill: false,
+                yAxisID: 'y-axis-1'
+            }, {
+                label: 'Ambient Humidity %',
+                borderColor: window.chartColors.green,
+                backgroundColor: window.chartColors.green,
+                data: ambientHData,
+                fill: false,
+                yAxisID: 'y-axis-2'
             }]
         },
         options: {

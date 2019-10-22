@@ -38,6 +38,8 @@ router.get('/environment', (req, res) => {
     var chartLabels = [];
     var temperatureData = [];
     var humidityData = [];
+    var ambientTempData = [];
+    var ambientHumidityData = [];
 
     // get the number of records in the environment database
     var countQuery = 'SELECT COUNT(*) AS rows FROM DataLog';
@@ -47,7 +49,7 @@ router.get('/environment', (req, res) => {
         logger.debug('Retrieved ' + countResult[0].rows + ' total records');
 
         // populate the chart with only the most recent records
-        var currentQuery = 'SELECT dl.temperature, dl.humidity, dl.timestamp FROM DataLog dl ORDER BY dl.timestamp DESC LIMIT 50';
+        var currentQuery = 'SELECT dl.temperature, dl.humidity, dl.ambient_temp, dl.ambient_humid, dl.timestamp FROM DataLog dl ORDER BY dl.timestamp DESC LIMIT 50';
         con.query(currentQuery, function (err, result) {
             if (err) throw err;
 
@@ -58,6 +60,8 @@ router.get('/environment', (req, res) => {
                 temperatureData.push((result[i].temperature * 9 / 5 + 32).toFixed(2));
                 humidityData.push(result[i].humidity.toFixed(2));
                 chartLabels.push(result[i].timestamp);
+                ambientTempData.push((result[i].ambient_temp * 9 / 5 + 32).toFixed(2));
+                ambientHumidityData.push(result[i].ambient_humid.toFixed(2));
             }
 
             // populate the pug template data
@@ -70,7 +74,9 @@ router.get('/environment', (req, res) => {
                 timestamp: result.length ? result[0].timestamp : 0.00,
                 tempData: JSON.stringify(temperatureData),
                 humidityData: JSON.stringify(humidityData),
-                chartLabels: JSON.stringify(chartLabels)
+                chartLabels: JSON.stringify(chartLabels),
+                ambientTData: JSON.stringify(ambientTempData),
+                ambientHData: JSON.stringify(ambientHumidityData)
             };
 
             res.render('beerroom', pugData);
