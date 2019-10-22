@@ -13,11 +13,13 @@ html
         script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
         script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
 
-    script (src='https://unpkg.com/babel-standalone@6/babel.min.js')
-  body
+    script(src='/beerroom/javascripts/burger-menu.js')
+  body    
     div(style="min-height:100%;")
       div(id='banner-image')
         div(id='company-name') M.A.N. Brewing
+        
+      div(id='burger-menu')
         
       block content      
       
