@@ -9,25 +9,27 @@ html
     if environment == 'DEVELOPMENT'
         script(src='https://unpkg.com/react@16/umd/react.development.js' crossorigin)
         script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js' crossorigin)
-    else
+    else      
         script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
         script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
 
-    script(src='/beerroom/javascripts/burger-menu.js')
-  body    
-    div(style="min-height:100%;")
-      div(id='banner-image')
-        div(id='company-name') M.A.N. Brewing
+    script(src='https://unpkg.com/babel-standalone@6/babel.min.js')
+  body
+    div(id='outer-container')
+      Menu(pageWrapId='page-wrap' outerContainerId='outer-container')
+      div(id='page-wrap' class='wrapper')
+        div(id='banner-image')
+          div(id='company-name') M.A.N. Brewing    
         
-      div(id='burger-menu')
-        
-      block content      
+        div(id='main-content')
+          div(id='burger-menu')
+          block content
       
-    div(id='footer')
-      table(class='footer-table')
-        tr
-          td 
-            a(target='blank' href='https://www.google.com/maps/place/2837+N+Pierce+St,+Milwaukee,+WI+53212/@43.0698428,-87.9069123,15z/data=!4m5!3m4!1s0x8805192fc89a6315:0xab2810b41f950d70!8m2!3d43.0701594!4d-87.9030329') Find Us
-        tr
-          td
-            a(target='blank' href='mailto:webmaster@krimthered.ddns.net') Contact Us
+      footer(class='footer')
+        table(class='footer-table')
+          tr
+            td 
+              a(target='blank' href='https://www.google.com/maps/place/2837+N+Pierce+St,+Milwaukee,+WI+53212/@43.0698428,-87.9069123,15z/data=!4m5!3m4!1s0x8805192fc89a6315:0xab2810b41f950d70!8m2!3d43.0701594!4d-87.9030329') Find Us
+          tr
+            td
+              a(target='blank' href='mailto:webmaster@krimthered.ddns.net') Contact Us

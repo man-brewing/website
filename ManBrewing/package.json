@@ -1,9 +1,9 @@
 {
   "name": "man-brewing",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "man_brewing.js"
+    "start": "node man_brewing.js"
   },
   "description": "ManBrewing",
   "author": {
