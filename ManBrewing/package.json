@@ -5,6 +5,11 @@
   "scripts": {
     "start": "node man_brewing.js"
   },
+  "keywords": ["beer", "brewing"],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/man-brewing/website"
+  },
   "description": "ManBrewing",
   "author": {
     "name": "ndykstra"
