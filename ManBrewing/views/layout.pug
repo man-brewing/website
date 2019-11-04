@@ -4,25 +4,16 @@ html
     title= title
     link(rel='stylesheet', href='/beerroom/stylesheets/main.css')
     link(rel='shortcut icon', href='/beerroom/images/favicon.ico')
-    - var environment = process.env.ENV;
-
-    if environment == 'DEVELOPMENT'
-        script(src='https://unpkg.com/react@16/umd/react.development.js' crossorigin)
-        script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js' crossorigin)
-    else      
-        script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
-        script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
-
-    script(src='https://unpkg.com/babel-standalone@6/babel.min.js')
+        
   body
     div(id='outer-container')
       Menu(pageWrapId='page-wrap' outerContainerId='outer-container')
       div(id='page-wrap' class='wrapper')
         div(id='banner-image')
-          div(id='company-name') M.A.N. Brewing    
+          div(id='company-name') M.A.N. Brewing
         
-        div(id='main-content')
-          div(id='burger-menu')
+        div(id='main-content')          
+          div(id='like_button_container')
           block content
       
       footer(class='footer')
@@ -33,3 +24,14 @@ html
           tr
             td
               a(target='blank' href='mailto:webmaster@krimthered.ddns.net') Contact Us
+              
+    - var environment = process.env.ENV;
+
+    if environment == 'DEVELOPMENT'
+        script(src='https://unpkg.com/react@16/umd/react.development.js' crossorigin)
+        script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js' crossorigin)
+    else      
+        script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
+        script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
+        
+    script(src='/beerroom/components/like_button.js')
