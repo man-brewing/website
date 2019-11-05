@@ -14,30 +14,30 @@ window.onload = function () {
         data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Temperature °F',
+                label: 'Room Temperature °F',
                 borderColor: window.chartColors.red,
                 backgroundColor: window.chartColors.red,
                 data: tempData,
                 fill: false,
                 yAxisID: 'y-axis-1'
             }, {
-                label: 'Humidity %',
+                label: 'Room Humidity %',
                 borderColor: window.chartColors.blue,
                 backgroundColor: window.chartColors.blue,
                 data: humidityData,
                 fill: false,
                 yAxisID: 'y-axis-2'
             }, {
-                label: 'Ambient Temperature °F',
-                borderColor: window.chartColors.purple,
-                backgroundColor: window.chartColors.purple,
+                label: 'Outside Temperature °F',
+                borderColor: window.chartColors.orange,
+                backgroundColor: window.chartColors.orange,
                 data: ambientTData,
                 fill: false,
                 yAxisID: 'y-axis-1'
             }, {
-                label: 'Ambient Humidity %',
-                borderColor: window.chartColors.green,
-                backgroundColor: window.chartColors.green,
+                label: 'Outside Humidity %',
+                borderColor: window.chartColors.purple,
+                backgroundColor: window.chartColors.purple,
                 data: ambientHData,
                 fill: false,
                 yAxisID: 'y-axis-2'
