@@ -7,7 +7,7 @@ html
         
   body
     div(id='outer-container')
-      Menu(pageWrapId='page-wrap' outerContainerId='outer-container')
+      Menu(id='burger' pageWrapId='page-wrap' outerContainerId='outer-container')
       div(id='page-wrap' class='wrapper')
         div(id='banner-image')
           div(id='company-name') M.A.N. Brewing
@@ -25,12 +25,13 @@ html
               a(target='blank' href='mailto:webmaster@krimthered.ddns.net') Contact Us
               
     - var environment = process.env.ENV;
-
     if environment == 'DEVELOPMENT'
         script(src='https://unpkg.com/react@16/umd/react.development.js' crossorigin)
         script(src='https://unpkg.com/react-dom@16/umd/react-dom.development.js' crossorigin)
     else      
         script (src='https://unpkg.com/react@16/umd/react.production.min.js' crossorigin)
         script (src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js' crossorigin)
-
+        
+    script(src='/beerroom/javascripts/react-burger-menu.js')
+    script(src='/beerroom/components/burger-menu.js')
 block scripts
