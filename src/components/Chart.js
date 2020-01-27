@@ -1,6 +1,9 @@
 import React from 'react';
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import GetEnvironmentData from '../util/api'
+import RingLoader from 'react-spinners/RingLoader'
+import { css } from "@emotion/core";
+import moment from 'moment'
 
 const lineColors = {
     red: '#FF0000',
@@ -9,6 +12,11 @@ const lineColors = {
     yellow: '#FFC300',
     blue: '#3339FF',
 }
+
+const loaderStyle = css`
+  display: block;
+  margin: 0 auto;
+`;
 
 /**
  * Chart to show the environment data.
@@ -39,10 +47,28 @@ export default class Chart extends React.Component {
             .then(json => {
                 // put the data in the component state and we are no longer loading
                 this.setState({
-                    data: json.results,
+                    data: json.results.sort((a,b) => { return moment(a.timestamp).diff(moment(b.timestamp))}), // we want to sort by date, ascending
                     loading: false
                 });
             });
+    }
+
+    /**
+     * Formats the tooltip label data.
+     * @param {*} value 
+     * @param {*} name 
+     */
+    labelFormatter(value, name) {
+        switch (name) {
+            case 'Outdoor Temperature':
+            case 'Room Temperature':
+                return [value + '°C', name]
+            case 'Outdoor Humidity':
+            case 'Room Humidity':
+                return [value + '%', name]
+            default:
+                return [value, name]
+        }
     }
 
     /**
@@ -54,7 +80,9 @@ export default class Chart extends React.Component {
         
         // render a loading placeholder until we have data
         if (loading === true) {
-            return <p>Loading</p>
+            return (                
+                <RingLoader loading={loading} css={loaderStyle} />
+            );
         }
 
         // we are not loading so let's render the line chart
@@ -94,7 +122,7 @@ export default class Chart extends React.Component {
                         >
                             <Label angle={90} value='Humidity %' position='insideRight' style={{ textAnchor: 'middle' }} />
                         </YAxis>
-                        <Tooltip />
+                        <Tooltip formatter={this.labelFormatter} labelFormatter={(value) => {return moment(value).format('LLL')}} />
                         <Legend layout='horizontal' align='center' verticalAlign='top' />
                         <Line yAxisId="1" type="natural" dataKey="temperature" name="Room Temperature" stroke={lineColors.red} animationDuration={300} />
                         <Line yAxisId="2" type="natural" dataKey="humidity" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
@@ -112,12 +140,12 @@ export default class Chart extends React.Component {
  */
 class CustomizedAxisTick extends React.Component {
     render() {
-      const { x, y, payload } = this.props;
-  
-      return (
-        <g transform={`translate(${x},${y})`}>
-          <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-        </g>
-      );
+        const { x, y, payload } = this.props;
+
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{moment(payload.value).format('LLL')}</text>
+            </g>
+        );
     }
-  }
+}
