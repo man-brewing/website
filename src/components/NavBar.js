@@ -1,15 +1,37 @@
 import React from 'react'
-import { Navbar, Nav } from 'react-bootstrap'
+import { Paper, Tabs, Tab } from '@material-ui/core'
+import { Link as RouterLink } from 'react-router-dom'
 
+/**
+ * Navigation bar with links to other pages.
+ */
 export default class Navigation extends React.Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            value: 0
+        }
+    }
+
+    handleChange = (event, newValue) => {
+        this.setState({
+            value: newValue,
+        })
+    }
+
     render() {
         return (
-            <Navbar bg="dark" variant="dark">
-                <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/fermentorium">Fermentorium</Nav.Link>
-                </Nav>
-            </Navbar>
+            <Paper style={{ flexGrow: 1 }}>
+                <Tabs
+                    value={false}
+                    centered
+                    onChange={this.handleChange}
+                >
+                    <Tab label='Home' component={RouterLink} to='/'/>
+                    <Tab label='Fermentorium' component={RouterLink} to='/fermentorium' />
+                </Tabs>
+            </Paper>
         )
     }
 }

@@ -6,7 +6,7 @@ import Content from './Content'
 import Footer from './Footer'
 import AgeVerification from './AgeVerification'
 
-export class Wrapper extends React.Component {
+class Wrapper extends React.Component {
 
     render() {
         let { isAgeVerified } = this.props
@@ -16,7 +16,9 @@ export class Wrapper extends React.Component {
                 {!isAgeVerified && <AgeVerification/>}
                 <Header />
                 <NavBar />
-                <Content />
+                <Content>
+                    {this.props.children}
+                </Content>
                 <Footer />
             </>
         )
