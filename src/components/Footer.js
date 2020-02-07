@@ -22,7 +22,7 @@ export default class Footer extends React.Component {
                 </a>
                 <a 
                     target='blank' 
-                    href='mailto:webmaster@man-brewing.ddns.net/'
+                    href='mailto:webmaster@man-brewing.ddns.net'
                 >
                     <Button>Contact Us</Button>
                 </a>
