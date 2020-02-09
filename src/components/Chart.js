@@ -91,7 +91,7 @@ export default class Chart extends React.Component {
                 <div>
                     <LineChart
                         style={{ margin: '0 auto' }}                   
-                        width={window.screen.width - 100}
+                        width={window.innerWidth - 100}
                         height={600}
                         data={data}
                     >
