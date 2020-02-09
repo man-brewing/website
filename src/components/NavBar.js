@@ -22,7 +22,7 @@ export default class Navigation extends React.Component {
 
     render() {
         return (
-            <Paper style={{ flexGrow: 1 }}>
+            <Paper style={{ flexGrow: 1 }} square>
                 <Tabs
                     value={false}
                     centered
