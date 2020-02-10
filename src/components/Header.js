@@ -1,5 +1,6 @@
 import React from 'react'
 import Background from '../images/hops_banner.jpg'
+import { Textfit } from 'react-textfit'
 
 let headerStyle = {
     backgroundImage: `url(${Background})`,
@@ -10,23 +11,13 @@ let headerStyle = {
     position: 'relative'
 }
 
-let companyNameStyle = {
-    textAlign: 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    color: 'black',
-    fontSize: '80px',
-}
-
 export default class Header extends React.Component {
     render () {
         return (
             <div style={ headerStyle }>
-                <div style={ companyNameStyle }>
+                <Textfit mode='single' style={{ height: '200px', top: '50%', left: '50%', textAlign: 'center' }}>
                     M.A.N. Brewing
-                </div>
+                </Textfit>
             </div>
         )
     }
