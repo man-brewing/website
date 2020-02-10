@@ -1,10 +1,11 @@
-import React from 'react';
+import React from 'react'
 import Home from './Home'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Fermentorium from './Fermentorium';
-import { handleInitialState } from '../actions/shared';
-import { connect } from 'react-redux';
-import { CssBaseline, MuiThemeProvider, createMuiTheme } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import Fermentorium from './Fermentorium'
+import About from './About'
+import { handleInitialState } from '../actions/shared'
+import { connect } from 'react-redux'
+import { CssBaseline, MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 
 const theme = createMuiTheme({
     palette: {
@@ -35,6 +36,7 @@ class App extends React.Component {
                         ? null
                         :
                         <Switch>
+                            <Route path='/about' component={About} />
                             <Route path="/fermentorium" component={Fermentorium} />
                             <Route exact path="/" component={Home} />
                         </Switch>

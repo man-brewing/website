@@ -30,6 +30,7 @@ export default class Navigation extends React.Component {
                 >
                     <Tab label='Home' component={RouterLink} to='/'/>
                     <Tab label='Fermentorium' component={RouterLink} to='/fermentorium' />
+                    <Tab label='About' component={RouterLink} to='/about' />
                 </Tabs>
             </Paper>
         )

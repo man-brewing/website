@@ -20,5 +20,5 @@ code {
 
 .content {
   background-color: rgb(231, 231, 231);
-  min-height: calc(100vh - 300px - 56px);
+  min-height: calc(100vh - 248px - 56px);
 }
