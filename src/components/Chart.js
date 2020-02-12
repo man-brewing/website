@@ -1,9 +1,8 @@
 import React from 'react';
 import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import GetEnvironmentData from '../util/api'
-import RingLoader from 'react-spinners/RingLoader'
-import { css } from "@emotion/core";
 import moment from 'moment'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const lineColors = {
     red: '#FF0000',
@@ -12,11 +11,6 @@ const lineColors = {
     yellow: '#FFC300',
     blue: '#3339FF',
 }
-
-const loaderStyle = css`
-  display: block;
-  margin: 0 auto;
-`;
 
 /**
  * Chart to show the environment data.
@@ -46,10 +40,12 @@ export default class Chart extends React.Component {
             .then(response => response.json()) // JSON-ify the response body
             .then(json => {
                 // put the data in the component state and we are no longer loading
-                this.setState({
-                    data: json.results.sort((a,b) => { return moment(a.timestamp).diff(moment(b.timestamp))}), // we want to sort by date, ascending
-                    loading: false
-                });
+                setInterval(() => {
+                    this.setState({
+                        data: json.results.sort((a,b) => { return moment(a.timestamp).diff(moment(b.timestamp))}), // we want to sort by date, ascending
+                        loading: false
+                    });
+                }, 3000)                
             });
     }
 
@@ -76,12 +72,14 @@ export default class Chart extends React.Component {
      */
     render() {
         // get these values out of the component's state
-        const { data, loading } = this.state;
+        const { data, loading } = this.state
         
         // render a loading placeholder until we have data
         if (loading === true) {
-            return (                
-                <RingLoader loading={loading} css={loaderStyle} />
+            return (
+                <div style={{ height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <CircularProgress />
+                </div>
             );
         }
 
@@ -91,7 +89,7 @@ export default class Chart extends React.Component {
                 <div>
                     <LineChart
                         style={{ margin: '0 auto' }}                   
-                        width={window.screen.width - 100}
+                        width={window.innerWidth - 100}
                         height={600}
                         data={data}
                     >
