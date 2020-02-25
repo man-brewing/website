@@ -3,6 +3,12 @@ import { Label, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Responsiv
 import GetEnvironmentData from '../util/api'
 import moment from 'moment'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={8} variant="filled" {...props} />;
+}
 
 const lineColors = {
     red: '#FF0000',
@@ -28,7 +34,9 @@ export default class Chart extends React.Component {
 
         this.state = {
             data: [],
-            loading: true
+            loading: true,
+            hasError: false,
+            showErrorAlert: false,
         };
     }
 
@@ -46,6 +54,13 @@ export default class Chart extends React.Component {
                         loading: false
                     });
                 }, 3000)                
+            })
+            .catch(err => {                
+                this.setState({
+                    loading: false,
+                    hasError: true,
+                    showErrorAlert: true,
+                });
             });
     }
 
@@ -67,20 +82,42 @@ export default class Chart extends React.Component {
         }
     }
 
+    handleClose = (event, reason) => {
+        this.setState({
+            showErrorAlert: false,
+        });
+    };
+
     /**
      * Draws the component on the DOM.
      */
     render() {
         // get these values out of the component's state
-        const { data, loading } = this.state
+        const { data, loading, hasError, showErrorAlert } = this.state
         
         // render a loading placeholder until we have data
-        if (loading === true) {
+        if (loading) {
             return (
                 <div style={{ height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <CircularProgress />
                 </div>
             );
+        }
+
+        // error, don't render the chart
+        if (hasError) {
+            return (
+                <>
+                    <div style={{ height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        Please try again later.
+                    </div>
+                    <Snackbar open={showErrorAlert} autoHideDuration={6000} onClose={this.handleClose}>
+                        <Alert onClose={this.handleClose} severity="error">
+                            Unable to load environment data.
+                        </Alert>
+                    </Snackbar>
+                </>
+            )
         }
 
         // we are not loading so let's render the line chart
