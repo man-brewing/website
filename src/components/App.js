@@ -6,6 +6,8 @@ import About from './About'
 import { handleInitialState } from '../actions/shared'
 import { connect } from 'react-redux'
 import { CssBaseline, MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 const theme = createMuiTheme({
     palette: {
@@ -23,26 +25,34 @@ class App extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
-                <Router>
-                    <link
-                    rel="stylesheet"
-                    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                    crossOrigin="anonymous"
-                    />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-                    {this.props.loading === true
-                        ? null
-                        :
-                        <Switch>
-                            <Route path='/about' component={About} />
-                            <Route path="/fermentorium" component={Fermentorium} />
-                            <Route exact path="/" component={Home} />
-                        </Switch>
-                    }
-                </Router>
-            </MuiThemeProvider>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <Router>
+                        <link
+                            rel="stylesheet"
+                            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+                            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+                            crossOrigin="anonymous"
+                        />
+                        <link 
+                            rel="stylesheet" 
+                            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap" 
+                        />
+                        <link 
+                            rel="stylesheet" 
+                            href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+                        />
+                        {this.props.loading === true
+                            ? null
+                            :
+                            <Switch>
+                                <Route path='/about' component={About} />
+                                <Route path="/fermentorium" component={Fermentorium} />
+                                <Route exact path="/" component={Home} />
+                            </Switch>
+                        }
+                    </Router>       
+                </MuiPickersUtilsProvider>
+            </MuiThemeProvider>   
         )
     }
 }
