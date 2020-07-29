@@ -1,4 +1,12 @@
-export const ApiDateFormat = 'YYYY-MM-DD';
+import moment from 'moment';
+
+/**
+ * Set default format.
+ */
+moment.defaultFormat = 'YYYY-MM-DD';
+
+export const ApiDateFormat = 'YYYY-MM-DD HH:mm:ss';
+
 
 let apiUrl;
 switch (window.location.hostname) {
