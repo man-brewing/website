@@ -7,7 +7,6 @@ moment.defaultFormat = 'YYYY-MM-DD';
 
 export const ApiDateFormat = 'YYYY-MM-DD HH:mm:ss';
 
-
 let apiUrl;
 switch (window.location.hostname) {
     case '127.0.0.1':
@@ -16,7 +15,7 @@ switch (window.location.hostname) {
         break;
 
     default:
-        apiUrl = 'http://krimthered.ddns.net/api/';
+        apiUrl = 'https://manbrewingapi.azurewebsites.net/beerroom/environment/';
         break;
 }
 

@@ -209,10 +209,10 @@ export default class Chart extends React.Component {
                                 </YAxis>
                                 <Tooltip formatter={this.labelFormatter} labelFormatter={(value) => {return moment(value).format('LLL')}} />
                                 <Legend layout='horizontal' align='center' verticalAlign='top' />
-                                <Line yAxisId="1" type="natural" dataKey="temperature" name="Room Temperature" stroke={lineColors.red} animationDuration={300} />
-                                <Line yAxisId="2" type="natural" dataKey="humidity" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
-                                <Line yAxisId="1" type="natural" dataKey="ambient_temp" name="Outdoor Temperature" stroke={lineColors.yellow} animationDuration={300} />
-                                <Line yAxisId="2" type="natural" dataKey="ambient_humid" name="Outdoor Humidity" stroke={lineColors.purple} animationDuration={300} />
+                                <Line yAxisId="1" type="natural" dataKey="ambientTemperatureC" name="Room Temperature" stroke={lineColors.red} animationDuration={300} />
+                                <Line yAxisId="2" type="natural" dataKey="ambientHumidityPercent" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
+                                <Line yAxisId="1" type="natural" dataKey="weatherTemperatureC" name="Outdoor Temperature" stroke={lineColors.yellow} animationDuration={300} />
+                                <Line yAxisId="2" type="natural" dataKey="weatherHumidityPercent" name="Outdoor Humidity" stroke={lineColors.purple} animationDuration={300} />
                             </LineChart>
                         </ResponsiveContainer>
                     }
