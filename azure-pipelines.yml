@@ -19,11 +19,14 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-
-- task: CopyFiles@2
+  
+- task: ArchiveFiles@2
   inputs:
-    Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    rootFolderOrFile: 'build/**'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   inputs: 
