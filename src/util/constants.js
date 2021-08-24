@@ -1,4 +1,11 @@
-export const ApiDateFormat = 'YYYY-MM-DD';
+import moment from 'moment';
+
+/**
+ * Set default format.
+ */
+moment.defaultFormat = 'YYYY-MM-DD';
+
+export const ApiDateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 let apiUrl;
 switch (window.location.hostname) {
@@ -8,7 +15,7 @@ switch (window.location.hostname) {
         break;
 
     default:
-        apiUrl = 'http://krimthered.ddns.net/api/';
+        apiUrl = 'https://manbrewingapi.azurewebsites.net/beerroom/environment/';
         break;
 }
 

@@ -7,7 +7,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import Box from '@material-ui/core/Box';
-import { ApiDateFormat } from '../util/constants';
 
 function Alert(props) {
     return <MuiAlert elevation={8} variant="filled" {...props} />;
@@ -40,8 +39,8 @@ export default class Chart extends React.Component {
             loading: false,
             hasError: false,
             showErrorAlert: false,
-            startDate: moment().subtract(1, 'M').format(ApiDateFormat),
-            endDate: moment().format(ApiDateFormat),
+            startDate: moment().subtract(1, 'M'),
+            endDate: moment(),
         };
     }
 
@@ -111,8 +110,8 @@ export default class Chart extends React.Component {
      */
     handleStartDateChange = (date) => {
         this.setState({
-            startDate: date.format(ApiDateFormat),
-        }, () => this.loadData());
+            startDate: date,
+        }, () => this.loadData());        
     }
 
     /**
@@ -120,7 +119,7 @@ export default class Chart extends React.Component {
      */
     handleEndDateChange = (date) => {
         this.setState({
-            endDate: date.format(ApiDateFormat),
+            endDate: date,
         }, () => this.loadData());
     }
 
@@ -157,7 +156,7 @@ export default class Chart extends React.Component {
                         disableFuture
                         value={this.state.startDate}
                         onChange={this.handleStartDateChange}
-                        format={ApiDateFormat}
+                        format={moment.format}
                     />
                     <KeyboardDatePicker
                         autoOk
@@ -165,7 +164,7 @@ export default class Chart extends React.Component {
                         disableFuture
                         value={this.state.endDate}
                         onChange={this.handleEndDateChange}
-                        format={ApiDateFormat}
+                        format={moment.format}
                     />
                 </Box>
                 <div style={{ height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -210,10 +209,10 @@ export default class Chart extends React.Component {
                                 </YAxis>
                                 <Tooltip formatter={this.labelFormatter} labelFormatter={(value) => {return moment(value).format('LLL')}} />
                                 <Legend layout='horizontal' align='center' verticalAlign='top' />
-                                <Line yAxisId="1" type="natural" dataKey="temperature" name="Room Temperature" stroke={lineColors.red} animationDuration={300} />
-                                <Line yAxisId="2" type="natural" dataKey="humidity" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
-                                <Line yAxisId="1" type="natural" dataKey="ambient_temp" name="Outdoor Temperature" stroke={lineColors.yellow} animationDuration={300} />
-                                <Line yAxisId="2" type="natural" dataKey="ambient_humid" name="Outdoor Humidity" stroke={lineColors.purple} animationDuration={300} />
+                                <Line yAxisId="1" type="natural" dataKey="ambientTemperatureC" name="Room Temperature" stroke={lineColors.red} animationDuration={300} />
+                                <Line yAxisId="2" type="natural" dataKey="ambientHumidityPercent" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
+                                <Line yAxisId="1" type="natural" dataKey="weatherTemperatureC" name="Outdoor Temperature" stroke={lineColors.yellow} animationDuration={300} />
+                                <Line yAxisId="2" type="natural" dataKey="weatherHumidityPercent" name="Outdoor Humidity" stroke={lineColors.purple} animationDuration={300} />
                             </LineChart>
                         </ResponsiveContainer>
                     }
