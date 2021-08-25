@@ -7,6 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import Box from '@material-ui/core/Box';
+import { largestTriangleThreeBucket } from 'd3fc-sample';
 
 function Alert(props) {
     return <MuiAlert elevation={8} variant="filled" {...props} />;
@@ -27,6 +28,9 @@ export default class Chart extends React.Component {
     // this is where the example code was lifted from
     static example = 'http://recharts.org/en-US/examples/SimpleLineChart';
     
+    // data sampler to reduce rendered elements on the chart
+    sampler = largestTriangleThreeBucket();
+
     /**
      * Initializes this component with default state.
      * @param {*} props 
@@ -81,13 +85,22 @@ export default class Chart extends React.Component {
 
         getEnvironmentData(startDate, endDate) // this returns a Promise
             .then(response => {
+                let dataCount = response.data.length;
+                let bucketSize = dataCount > 100 ? dataCount * .03 : dataCount;
+
+                this.sampler.bucketSize(bucketSize)
+                    .x(d => d.ambientTemperatureC)
+                    .y(d => moment(d.id).valueOf());
+
+                let sampledData = this.sampler(response.data);
+                
                 // put the data in the component state and we are no longer loading
                 this.setState({
-                    data: response.data,
+                    data: sampledData,
                     loading: false,
                 });               
             })
-            .catch(err => {                
+            .catch(_ => {                
                 this.setState({
                     loading: false,
                     hasError: true,
