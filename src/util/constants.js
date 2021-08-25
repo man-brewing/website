@@ -9,10 +9,10 @@ export const ApiDateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 let apiUrl;
 switch (window.location.hostname) {
-    case '127.0.0.1':
-    case 'localhost':
-        apiUrl = 'http://localhost:3001/';
-        break;
+    // case '127.0.0.1':
+    // case 'localhost':
+    //     apiUrl = 'http://localhost:3001/';
+    //     break;
 
     default:
         apiUrl = 'https://manbrewingapi.azurewebsites.net/beerroom/environment/';
