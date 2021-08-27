@@ -8,6 +8,8 @@ import MuiAlert from '@material-ui/lab/Alert';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import Box from '@material-ui/core/Box';
 import { largestTriangleThreeBucket } from 'd3fc-sample';
+import { Grid, Switch } from '@material-ui/core';
+import { toCelsius, toFahrenheit } from '../util/helpers';
 
 function Alert(props) {
     return <MuiAlert elevation={8} variant="filled" {...props} />;
@@ -19,6 +21,11 @@ const lineColors = {
     purple: '#8000FF',
     yellow: '#FFC300',
     blue: '#3339FF',
+}
+
+const TempUnits = {
+    Celsius: 'Celsius',
+    Fahrenheit: 'Fahrenheit',
 }
 
 /**
@@ -45,6 +52,7 @@ export default class Chart extends React.Component {
             showErrorAlert: false,
             startDate: moment().subtract(1, 'M'),
             endDate: moment(),
+            currentTempUnit: TempUnits.Celsius, // data comes in as celsius
         };
     }
 
@@ -137,6 +145,44 @@ export default class Chart extends React.Component {
     }
 
     /**
+     * Changes both temp measurements to Fahrenheit.
+     * @param {*} celsius 
+     */
+    convertToFahrenheit = (celsius) => {
+        celsius.ambientTemperatureC = toFahrenheit(celsius.ambientTemperatureC);
+        celsius.weatherTemperatureC = toFahrenheit(celsius.weatherTemperatureC);
+    }
+
+    /**
+     * Changes both temp measurements to Celsius
+     * @param {*} fahrenheit 
+     */
+    convertToCelsius = (fahrenheit) => {
+        fahrenheit.ambientTemperatureC = toCelsius(fahrenheit.ambientTemperatureC);
+        fahrenheit.weatherTemperatureC = toCelsius(fahrenheit.weatherTemperatureC);
+    }
+
+    /**
+     * Changes the temperature units of the loaded data.
+     */
+    handleTempUnitChange = () => {
+        let { currentTempUnit, data } = this.state;     
+
+        if (currentTempUnit === TempUnits.Celsius) {
+            data.forEach((value) => this.convertToFahrenheit(value));
+        } else {
+            data.forEach((value) => this.convertToCelsius(value));
+        }
+
+        this.setState((prevState) => {
+            return {
+                currentTempUnit: prevState.currentTempUnit === TempUnits.Celsius ? TempUnits.Fahrenheit : TempUnits.Celsius,
+                data,
+            };
+        });
+    }
+
+    /**
      * Draws the component on the DOM.
      */
     render() {
@@ -158,11 +204,11 @@ export default class Chart extends React.Component {
                 </>
             )
         }
-
+        
         // we are not loading so let's render the line chart
         return (
             <>
-                <Box style={{ background: 'gray' }}>
+                <Box style={{ background: 'gray', display: 'flex' }}>
                     <KeyboardDatePicker
                         autoOk
                         label={`Start Date:`}
@@ -178,7 +224,14 @@ export default class Chart extends React.Component {
                         value={this.state.endDate}
                         onChange={this.handleEndDateChange}
                         format={moment.format}
-                    />
+                    />                    
+                    <Grid component="label" container alignItems="center">
+                        <Grid item>Fahrenheit</Grid>
+                        <Grid item>
+                            <Switch checked={this.state.currentTempUnit === TempUnits.Celsius} onChange={this.handleTempUnitChange} name="tempUnit" />
+                        </Grid>
+                        <Grid item>Celsius</Grid>
+                    </Grid>
                 </Box>
                 <div style={{ height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     {loading ?
@@ -208,7 +261,7 @@ export default class Chart extends React.Component {
                                     domain={['dataMin - 10', 'dataMax + 10']}
                                     allowDecimals={false}
                                 >
-                                    <Label angle={-90} value='Temperature °C' position='insideLeft' style={{ textAnchor: 'middle' }} />
+                                    <Label angle={-90} value={`Temperature °${this.state.currentTempUnit.charAt(0)}`} position='insideLeft' style={{ textAnchor: 'middle' }} />
                                 </YAxis>
                                 <YAxis
                                     orientation="right"
@@ -226,7 +279,7 @@ export default class Chart extends React.Component {
                                 <Line yAxisId="2" type="natural" dataKey="ambientHumidityPercent" name="Room Humidity" stroke={lineColors.blue} animationDuration={300} />
                                 <Line yAxisId="1" type="natural" dataKey="weatherTemperatureC" name="Outdoor Temperature" stroke={lineColors.yellow} animationDuration={300} />
                                 <Line yAxisId="2" type="natural" dataKey="weatherHumidityPercent" name="Outdoor Humidity" stroke={lineColors.purple} animationDuration={300} />
-                            </LineChart>
+                            </LineChart>              
                         </ResponsiveContainer>
                     }
                 </div>

@@ -15,7 +15,7 @@ export function indexOfByAttr(array, attr, value) {
  * @returns 
  */
 export function toFahrenheit(celsius) {
-    return (celsius * 1.8) + 32;
+    return (celsius * 9/5) + 32;
 }
 
 /**
@@ -24,5 +24,5 @@ export function toFahrenheit(celsius) {
  * @returns 
  */
 export function toCelsius(fahrenheit) {
-    return (fahrenheit -32) * .5556;
+    return (fahrenheit - 32) * (5/9);
 }
