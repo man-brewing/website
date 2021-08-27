@@ -17,3 +17,12 @@ export function indexOfByAttr(array, attr, value) {
 export function toFahrenheit(celsius) {
     return (celsius * 1.8) + 32;
 }
+
+/**
+ * Converts a Fahrenheit measurement to Celsius.
+ * @param {*} fahrenheit 
+ * @returns 
+ */
+export function toCelsius(fahrenheit) {
+    return (fahrenheit -32) * .5556;
+}
