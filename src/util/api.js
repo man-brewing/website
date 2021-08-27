@@ -1,6 +1,5 @@
 import { ApiUrl } from '../util/constants';
 import axios from 'axios';
-import { ApiDateFormat } from '../util/constants';
 
 /**
  * Gets the most recent environment records, defaulting to 20.
@@ -21,6 +20,7 @@ export function getLatestEnvironmentData (count = 20) {
  * @param {*} endDate 
  */
 export function getEnvironmentData(startDate, endDate) {
-    //return fetch(ApiUrl + `history/${startDate}/${endDate}`);
-    return axios.get(ApiUrl + `history/${startDate.startOf('day').format(ApiDateFormat)}/${endDate.endOf('day').format(ApiDateFormat)}`);
+    let uriStartDate = encodeURIComponent(startDate.startOf('day').toISOString(true));
+    let uriEndDate = encodeURIComponent(endDate.endOf('day').toISOString(true));
+    return axios.get(ApiUrl + `history/${uriStartDate}/${uriEndDate}`);
 }
