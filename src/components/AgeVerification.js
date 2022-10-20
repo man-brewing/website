@@ -8,6 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 /**
  * Component that handles the slide up transition.
@@ -20,19 +22,27 @@ const Transition = React.forwardRef(function Transition(props, ref) {
  * An age verification dialog.
  */
 class AgeVerification extends React.Component {
+    static propTypes = {
+      cookies: instanceOf(Cookies).isRequired
+    };
+
     constructor(props) {
         super(props)
 
+        const { cookies } = this.props;
         this.state = {
-            modalIsOpen: true
-        }
+            modalIsOpen: cookies.get('ageVerified') === 'true' ? false : true,
+        };
     }
 
     /**
      * Updates the redux store saying we are 21 or over.
      */
     handleClose = () => {
-        this.props.dispatch(setVerifiedAge(true))
+        this.props.dispatch(setVerifiedAge(true));
+
+        const { cookies } = this.props;
+        cookies.set('ageVerified', 'true', {path: '/'});
     }
 
     /**
@@ -68,4 +78,4 @@ function mapStateToProps({ ageVerification }) {
 }
 
 // Connects this component to the redux store.
-export default connect(mapStateToProps)(AgeVerification)
+export default withCookies(connect(mapStateToProps)(AgeVerification));
