@@ -1,15 +1,69 @@
-# M.A.N. Brewing
-The website frontend for Matt, Andy, and Nate's (M.A.N.) adventures into homebrewing. The site is also a test platform for the contributors to learn new technologies and test out web development.
+# React + TypeScript + Vite
 
-## Hosting
-A dynamic DNS service ([no-ip](https://www.noip.com/)) is used to direct traffic for the registered URL to a home server. This server uses [nginx](https://www.nginx.com) to reverse proxy connections to the appropriate endpoint since the hardware plays host to both this site and the [TeamCity](https://www.jetbrains.com/teamcity/) continuous integration platform that deploys this site automatically via GitHub hooks.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Overview
-The site is run as a React single page app and can be started locally using these steps:
+Currently, two official plugins are available:
 
-1. Clone the repo
-1. Run `npm install`
-1. Run `npm run start`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Fermentorium
-This page is the dashboard for the beer room environment monitoring software which can be found [here](https://github.com/man-brewing/environment_monitor). [Recharts](http://recharts.org/en-US/) is used for graphing both the room temperature and humidity as well as outside/ambient data. 
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

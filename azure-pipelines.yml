@@ -4,28 +4,27 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
-  
-- task: CopyFiles@2
-  inputs:
-    Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - script: |
+      npm install
+    displayName: 'npm install dependencies'
 
-- task: PublishBuildArtifacts@1
-  inputs: 
-    PathtoPublish: $(Build.ArtifactStagingDirectory)
-    ArtifactName: 'www' # output artifact named www
+  - script: |
+      npm run build
+    displayName: 'npm run build'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: www'
+    inputs:
+      PathtoPublish: 'dist' # path to the build output directory
+      ArtifactName: 'www' # output artifact named www
